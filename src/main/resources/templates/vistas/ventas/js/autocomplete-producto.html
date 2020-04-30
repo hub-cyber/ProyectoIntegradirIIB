@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<script type="text/javascript" th:fragment="javascript">
+	$(document).ready(function(){
+		$("#buscar_producto").autocomplete({
+			source: function(request, response)	{
+				$.ajax({
+					url: "/modulo-ventas/carga-producto/"+ request.term,
+					dataType: "json",
+					data:{
+						term: request.term
+					},
+				success:function(data){
+					response($.map(data,function(item){
+						return{
+							value:item.id,
+							codigo:item.identificador,
+							label: item.nombre,
+							precio: item.precio,
+							
+						};
+					}));
+				},
+				});
+			},
+			select: function(event,ui){
+//  				$("#buscar_producto").val(ui.item.label);	
+ 				if(itemsHelper.hasProducto(ui.item.value)){
+ 					itemsHelper.incrementaCantidad(ui.item.value, ui.item.precio);
+ 					return false;
+ 				}
+ 				
+				var linea = $("#plantillaItemsPedido").html();
+				linea = linea.replace(/{ID}/g,ui.item.value);
+				linea = linea.replace(/{IDENTIFICADOR}/g,ui.item.codigo);
+				linea = linea.replace(/{NOMBRE}/g,ui.item.label);
+				linea = linea.replace(/{PRECIO}/g,ui.item.precio);
+				$("#cargarItemProductos tbody").append(linea);
+				
+				if(itemsHelper.hasDescuento(ui.item.value)){
+					itemsHelper.calculardescuento(ui.item.value,ui.item.precio,1,0);
+				}else{
+				itemsHelper.calcularImporte(ui.item.value,ui.item.precio,1);
+				}
+				
+				
+				return false;
+			}
+		});//fin del autocomplete
+		$("#formp").submit(function(){
+			$("#plantillaItemsPedido").remove();
+			return;
+		});
+	});
+	
+	var itemsHelper= {
+	calcularImporte: function(id,precio,cantidad){
+			$("#total" + id).html(parseInt(precio) * parseInt(cantidad));
+			this.calcularSubTotal();
+			this.calcularGranTotal();
+			this.calcularImpuestos();
+			this.calcularGranTotalInput();
+	},
+	hasProducto: function(id){
+		var resultado = false;
+		$('input[name="item_id[]"]').each(function(){
+			if(parseInt(id) == parseInt($(this).val()) ){
+				resultado = true;
+			}
+		});
+		return resultado;
+	},
+	hasDescuento: function(id){
+		var Haydescuento= false;
+		if($("#descuento_" + id ).val()> 0){
+			Haydescuento= true;
+		}
+		return Haydescuento;
+	},
+	incrementaCantidad: function(id, precio){
+ 	var cantidad = $("#cantidad_" + id).val() ? parseInt($("#cantidad_" + id).val()) :0;
+	$("#cantidad_" + id).val(++cantidad);
+	this.calcularImporte(ID, precio, cantidad);
+	this.calculardescuento(ID,precio,cantidad,descuento);
+	},
+	eliminarlinea: function(id){
+		$("#row_" + id).remove();
+		this.calcularSubTotal();
+		this.calcularImpuestos();
+		this.calcularGranTotal();
+	},
+	calculardescuento: function(id,precio,cantidad,descuento){
+		var importe = parseInt(precio) * parseInt(cantidad)
+		var	des = (parseInt(importe) * parseInt(descuento))/100;
+			impcondes = importe - des;
+			console.log(impcondes);
+			$("#total" + id).html(impcondes);
+			this.calcularSubTotal();
+			this.calcularImpuestos();
+			this.calcularGranTotal();
+			this.calcularGranTotalInput();
+	},
+	calcularSubTotal: function(){
+		var subTotal=0;
+		$('span[id^="total"]').each(function(){
+			subTotal += parseInt($(this).html());
+		})
+		$("#Sub_Total").html(subTotal);
+	},
+	calcularGranTotal: function(){
+		var iva= 1.16;
+		var Total;
+		var subTotal=0;
+		$('span[id^="total"]').each(function(){
+			subTotal += parseInt($(this).html());
+		})
+		
+		Total = subTotal * iva ;
+		$(".GranTotal").html(parseInt(Total));
+	},
+	calcularImpuestos: function(){
+		var iva= 16;
+		var impuestos;
+		var subTotal=0;
+		$('span[id^="total"]').each(function(){
+			subTotal += parseInt($(this).html());
+		})
+		
+		impuestos = (subTotal * iva)/100 ;
+		$("#Impuestos").html(parseInt(impuestos));
+	},
+	calcularGranTotalInput: function(){
+		var iva= 1.16;
+		var Total;
+		var subTotal=0;
+		$('span[id^="total"]').each(function(){
+			subTotal += parseInt($(this).html());
+		})
+		
+		Total = subTotal * iva ;
+		$("#GranTotalInput").val(parseInt(Total));
+	}
+	
+	
+}
+
+	
+	</script>
+</body>
+</html>

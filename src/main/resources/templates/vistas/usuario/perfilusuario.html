@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlts:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<header></header>
+	<main>
+		<article>
+			<form th:action="@{/perfilusuario/}  + ${id}" th:object="${usuario}" th:method="PUT">
+				<section id="datosPersonales">
+					<div class="form-group row">
+						<label class="col-auto col-form-label" for="nombre">Nombre:</label>
+						<div>
+							<input type="text" class="form-control" placeholder="Nombre"
+								id="nombre" th:field="*{nombre}"
+								th:errorclass="'form-control alert-danger'"> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-auto col-form-label" for="apellidos">Apellidos:</label>
+						<div>
+							<input type="text" class="form-control" placeholder="Apellidos"
+								id="apellidos" th:field="*{apellido}"
+								th:errorclass="'form-control alert-danger'"> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-auto col-form-label" for="username">Username:</label>
+						<div>
+							<input type="text" class="form-control" placeholder="Username"
+								id="username" th:field="*{username}"
+								th:errorclass="'form-control alert-danger'"> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-auto col-form-label" for="password">Password:</label>
+						<div>
+							<input type="text" class="form-control" placeholder="Password"
+								id="password" th:field="*{password}"
+								th:errorclass="'form-control alert-danger'"> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-auto col-form-label" for="roles">Roles</label>
+						<div>
+							<select id="roles" th:field="*{iduserRole}" class="form-control">
+								<option value="">-- seleccionar --</option>
+								<option th:each="rol: ${roles}" th:text="${rol.descripcion}"
+									th:value="${rol.id}"></option>
+							</select>
+						</div>
+						<small class="form-text text-danger"
+							th:if="${#fields.hasErrors('iduserRole')}"
+							th:errors="*{iduserRole}"></small>
+					</div>
+					<input class="btn btn-primary" type="submit" value="Editar" />
+				</section>
+
+			</form>
+			<section id="clientes">
+				<div class="card">
+					<div class="card-header" th:text="'Clientes del Usuario'"></div>
+					<div class="card-body">
+						<blockquote class="blockquote mb-0">
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								Integer posuere erat a ante.</p>
+							<footer class="blockquote-footer">
+								Someone famous in <cite title="Source Title">Source Title</cite>
+							</footer>
+						</blockquote>
+					</div>
+				</div>
+			</section>
+			<section id="pedidos">
+				<div class="card">
+					<div class="card-header"
+						th:text="'Pedidos realizados por el  Usuario'"></div>
+					<div class="card-body">
+						<blockquote class="blockquote mb-0">
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								Integer posuere erat a ante.</p>
+							<footer class="blockquote-footer">
+								Someone famous in <cite title="Source Title">Source Title</cite>
+							</footer>
+						</blockquote>
+					</div>
+				</div>
+			</section>
+			<section id="cobranza">
+				<div class="card">
+					<div class="card-header"
+						th:text="'Cobranza realizada por el  Usuario'"></div>
+					<div class="card-body">
+						<blockquote class="blockquote mb-0">
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								Integer posuere erat a ante.</p>
+							<footer class="blockquote-footer">
+								Someone famous in <cite title="Source Title">Source Title</cite>
+							</footer>
+						</blockquote>
+					</div>
+				</div>
+			</section>
+		</article>
+	</main>
+	<footer></footer>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}"
+             th:text="${mensaje}"
+             class="alert container">
+        </div>
+	<div class="container py-4">
+	<h4>
+		<a th:href="@{/modulo-ventas/crear/}+ ${cliente.id}" class="btn btn-outline-success btn-sm">Crear Factura</a>
+	</h4>
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+				<ul class="list-group">
+					
+					<li class="list-group-item active"
+						th:text="${cliente.nombre} + ' '+ ${cliente.apellidos}"></li>
+					<li class="list-group-item" th:text="${cliente.email}"></li>
+					<li class="list-group-item" th:text="${cliente.rfc}"></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<div class="alert alert-info my-4" th:if="${#lists.isEmpty(cliente.pedidos)}"
+			th:text="'No hay Pedidos Asignados para el Cliente: ' + ${cliente.nombre} + ' ' + 
+			${cliente.apellidos} "></div>
+		<div class="card bg-light mt-4" id="pedidos">
+			<div class="card-header" th:text="${titulo2}"></div>
+			<div class="card-body">
+				<table th:if="${not #lists.isEmpty(cliente.pedidos)}" class="table table-bordered table-striped my-4">
+					<thead class="thead-dark">
+						<tr>
+							<th>Folio</th>
+							<th>Descripcion</th>
+							<th>Tipo de Pago</th>
+							<th>Tipo de Credito</th>
+							<th>Fecha de Creacion</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="pedido: ${ventaslista}">
+							<td th:text="${pedido.folio}"></td>
+							<td th:text="${pedido.descripcion}"></td>
+							<td th:text="${pedido.tp.descripcion}"></td>
+							<td th:text="${pedido.tc.descripcion}"></td>
+							<td th:text="${pedido.createAt}"></td>
+							<td th:text="${pedido.total}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div class="container py-4">
+
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>Nombre</th>
+							<th>Apellidos</th>
+							<th>Email</th>
+							<th>RFC</th>
+							<th>Crear Factura</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cliente: ${clientes}">
+							<td><a class="btn btn-primary btn-xs"
+								th:href="@{/modulo-ventas/ver/} + ${cliente.id}"
+								th:text="${cliente.identificador}"></a></td>
+							<td th:text="${cliente.nombre}"></td>
+							<td th:text="${cliente.apellidos}"></td>
+							<td th:text="${cliente.email}"></td>
+							<td th:text="${cliente.rfc}"></td>
+							<td> <a th:href="@{/modulo-ventas/crear/}+ ${cliente.id}" class="btn btn-outline-success btn-sm">Crear Factura</a></td>
+						</tr>
+					</tbody>
+
+				</table>
+
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

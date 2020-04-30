@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table th:fragment="itemspedido" class="d-none">
+		<tbody id="plantillaItemsPedido">
+			<tr id="row_{ID}" >
+			<td class="d-none">
+			<input  type="hidden" value="{ID}" name="item_id[]"/>
+			</td>
+			<td>{IDENTIFICADOR}</td>
+			<td>{NOMBRE}</td>
+			<td><input type="number" value="1" name="cantidad[]" id="cantidad_{ID}" 
+			class="form-control col-auto " onchange="itemsHelper.calcularImporte({ID},{PRECIO},this.value);"
+			/> </td>
+			<td>
+			<input type="number" value="0" name="descuento[]" id="descuento_{ID}" class="form-control col-auto "
+			onchange="itemsHelper.calculardescuento({ID},{PRECIO},cantidad_{ID}.value,this.value);"/> </td>
+			<td>{PRECIO}</td>
+			<td>
+			<span id="total{ID}">0</span>
+			</td>
+			<td><a href="#" class="btn btn-danger btn-sm" onclick="itemsHelper.eliminarlinea({ID});">X</a></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

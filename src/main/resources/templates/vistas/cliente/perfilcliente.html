@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlts:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+	<header></header>
+	<main class="container">
+		<article>
+			<span class="display-4" th:text="${titulo}"></span>
+			<hr>
+			<a class="btn btn-outline-success btn-sm" th:href="@{/clientes}">volver</a>
+			<section class="datospersonales mt-3">
+				<form th:action="@{/perfilcliente/} + ${id}" th:object="${cliente}"
+					th:method="PUT">
+					<div class="form-group row">
+						<label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control " id="nombre"
+								th:field="*{nombre}" th:errorclass="'form-control alert-danger'"
+								placeholder="Nombre"> <small
+								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+								class="form-text text-danger"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="apellidos" class="col-sm-2 col-form-label">Apellidos:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control " id="apellidos"
+								th:field="*{apellidos}"
+								th:errorclass="'form-control alert-danger'"
+								placeholder="Appellidos"> <small
+								th:if="${#fields.hasErrors('apellidos')}"
+								th:errors="*{apellidos}" class="form-text text-danger"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="email" class="col-sm-2 col-form-label">Email:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control " id="email"
+								th:field="*{email}" th:errorclass="'form-control alert-danger'"
+								placeholder="Correo Electronico"> <small
+								th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+								class="form-text text-danger"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="rfc" class="col-sm-2 col-form-label">RFC:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control " id="rfc"
+								th:field="*{rfc}" th:errorclass="'form-control alert-danger'"
+								placeholder="RFC"> <small
+								th:if="${#fields.hasErrors('rfc')}" th:errors="*{rfc}"
+								class="form-text text-danger"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="id" class="col-sm-2 col-form-label">Identificador
+							de Cliente :</label>
+						<div class="col-sm-10">
+							<input type="number" class="form-control " id="id"
+								th:field="*{identificador}"
+								th:errorclass="'form-control alert-danger'"
+								placeholder="Identificador"> <small
+								th:if="${#fields.hasErrors('identificador')}"
+								th:errors="*{identificador}" class="form-text text-danger"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="vendedores" class="col-sm-2 col-form-label">Vendedor:</label>
+						<div class="col-sm-10">
+							<select id="vendedores" th:field="*{vendedor}"
+								class="form-control">
+								<option value="">-- seleccionar --</option>
+								<option th:each="vend: ${vendedores}"
+									th:text="${vend.nombre}+' '+ ${vend.apellido}"
+									th:value="${vend.id}"></option>
+							</select> <small class="form-text text-danger"
+								th:if="${#fields.hasErrors('vendedor')}" th:errors="*{vendedor}"></small>
+						</div>
+					</div>
+					<input class="btn btn-primary btn-xs" type="submit" value="Editar" />
+				</form>
+			</section>
+			<hr>
+			<section class="direccion">
+				<a class="btn btn-outline-warning btn-lg btn-block"  th:href="@{/perfilcliente/} + ${cliente.id} + @{/direccion}">Añadir Direccion</a>
+				<div class="row">
+					<div class="col-auto" th:each="dire: ${direccion}">
+						<!-- 			tarjeta -->
+						<div class="card border-dark  mt-3" style="max-width: 18rem; height: 18rem;">
+							<div class="card-header">Direccion</div>
+							<div class="card-body text-dark">
+								<p class="card-text m-0" th:text="${dire.colonia}"></p>
+								<p class="card-text m-0" th:text="${dire.calle} + ${dire.numext}"></p>
+								<p class="card-text m-0" th:text="${dire.zip}"></p>
+								<p class="card-text m-0" th:text="${dire.idmunicipio.descripcion}"></p>
+								<p class="card-text m-0" th:text="${dire.referencia}"></p>
+							</div>
+							<div class="card-footer bg-transparent border-success">
+							<a class=" btn btn-outline-primary btn-sm"  th:href="@{/perfilcliente/} + ${id} + @{/direccion/} + ${dire.id}">Editar</a>
+							<a class=" btn btn-outline-danger btn-sm" th:href=" @{/perfilcliente/} + ${id} + @{/eliminardireccion/} + ${dire.id}">Eliminar</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</article>
+	</main>
+	<footer></footer>
+</body>
+</html>
