@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<html xmlts:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title th:text="titulo"></title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="layout/layout :: head"></head>
 <body>
-	<header>
+	<header th:replace="layout/layout :: header">
 		<h1 th:text="${titulo}"></h1>
 	</header>
 	<main class="container">

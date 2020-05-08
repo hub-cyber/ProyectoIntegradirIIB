@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.proyectointegrador2b.modelos.entity.Direccion;
@@ -43,6 +45,12 @@ public class DireccionServiceImpl implements ServiceGeneric<Direccion, Integer> 
 
 	@Override
 	public Direccion actualizacion(Integer id, Direccion body) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<Direccion> getAll(Pageable paginable) {
 		// TODO Auto-generated method stub
 		return null;
 	}

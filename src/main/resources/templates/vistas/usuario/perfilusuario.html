@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html xmlts:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title>Insert title here</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
 <body>
-	<header></header>
-	<main>
+	<header th:replace="layout/layout :: header"></header>
+	<main class="container py-4">
 		<article>
-			<form th:action="@{/perfilusuario/}  + ${id}" th:object="${usuario}" th:method="PUT">
+		<span class="display-4" th:text="${titulo}"></span>
+			<hr>
+			<a class="btn btn-outline-success btn-sm" th:href="@{/usuarios}">volver</a>
+			<form th:action="@{/perfilusuario/}  + ${id}" th:object="${usuario}"
+				th:method="PUT">
 				<section id="datosPersonales">
 					<div class="form-group row">
-						<label class="col-auto col-form-label" for="nombre">Nombre:</label>
-						<div>
+						<label class="col-sm-2 col-form-label" for="nombre">Nombre:</label>
+						<div class="col-sm-10">
 							<input type="text" class="form-control" placeholder="Nombre"
 								id="nombre" th:field="*{nombre}"
 								th:errorclass="'form-control alert-danger'"> <small
@@ -21,8 +22,8 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-auto col-form-label" for="apellidos">Apellidos:</label>
-						<div>
+						<label class="col-sm-2 col-form-label" for="apellidos">Apellidos:</label>
+						<div class="col-sm-10">
 							<input type="text" class="form-control" placeholder="Apellidos"
 								id="apellidos" th:field="*{apellido}"
 								th:errorclass="'form-control alert-danger'"> <small
@@ -32,18 +33,18 @@
 					</div>
 
 					<div class="form-group row">
-						<label class="col-auto col-form-label" for="username">Username:</label>
-						<div>
+						<label class="col-sm-2 col-form-label" for="username">Username:</label>
+						<div class="col-sm-10">
 							<input type="text" class="form-control" placeholder="Username"
 								id="username" th:field="*{username}"
 								th:errorclass="'form-control alert-danger'"> <small
 								class="form-text text-danger"
 								th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
 						</div>
-					</div>
+					</div >
 					<div class="form-group row">
-						<label class="col-auto col-form-label" for="password">Password:</label>
-						<div>
+						<label class="col-sm-2 col-form-label" for="password">Password:</label>
+						<div class="col-sm-10">
 							<input type="text" class="form-control" placeholder="Password"
 								id="password" th:field="*{password}"
 								th:errorclass="'form-control alert-danger'"> <small
@@ -52,8 +53,8 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-auto col-form-label" for="roles">Roles</label>
-						<div>
+						<label class="col-sm-2 col-form-label" for="roles">Roles</label>
+						<div class="col-sm-10">
 							<select id="roles" th:field="*{iduserRole}" class="form-control">
 								<option value="">-- seleccionar --</option>
 								<option th:each="rol: ${roles}" th:text="${rol.descripcion}"
@@ -69,46 +70,107 @@
 
 			</form>
 			<section id="clientes">
-				<div class="card">
+						<div class="alert alert-info my-4" th:if="${#lists.isEmpty(listcli)}"
+			th:text="'El Vendedor: ' + ${usuario.nombre} + ' ' + 
+			${usuario.apellido} +'No posee ningun cliente'"></div>
+				<div class="card mt-5">
 					<div class="card-header" th:text="'Clientes del Usuario'"></div>
 					<div class="card-body">
-						<blockquote class="blockquote mb-0">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Integer posuere erat a ante.</p>
-							<footer class="blockquote-footer">
-								Someone famous in <cite title="Source Title">Source Title</cite>
-							</footer>
-						</blockquote>
+						<table th:if="${not #lists.isEmpty(listcli)}"
+							class="table table-bordered table-striped my-4">
+							<thead class="thead-dark">
+								<tr>
+									<th>Identificador</th>
+									<th>Nombre</th>
+									<th>Email</th>
+									<th>RFC</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="cliente: ${listcli}">
+									<td th:text="${cliente.identificador}"></td>
+									<td th:text="${cliente.nombre}+' '+${cliente.apellidos} "></td>
+									<td th:text="${cliente.email}"></td>
+									<td th:text="${cliente.rfc}"></td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- 						<nav th:replace="/layout/paginator-nav :: paginator"></nav> -->
 					</div>
 				</div>
 			</section>
 			<section id="pedidos">
-				<div class="card">
+			<div class="alert alert-info my-4" th:if="${#lists.isEmpty(listped)}"
+			th:text="'No hay Pedidos Creados por el Vendedor: ' + ${usuario.nombre} + ' ' + 
+			${usuario.apellido} "></div>
+				<div class="card mt-5">
 					<div class="card-header"
 						th:text="'Pedidos realizados por el  Usuario'"></div>
 					<div class="card-body">
-						<blockquote class="blockquote mb-0">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Integer posuere erat a ante.</p>
-							<footer class="blockquote-footer">
-								Someone famous in <cite title="Source Title">Source Title</cite>
-							</footer>
-						</blockquote>
+						<table th:if="${not #lists.isEmpty(listped)}"
+							class="table table-bordered table-striped my-4">
+							<thead class="thead-dark">
+								<tr>
+									<th>Folio</th>
+									<th>Descripcion</th>
+									<th>Tipo de Pago</th>
+									<th>Tipo de Credito</th>
+									<th>Fecha de Creacion</th>
+									<th>Total</th>
+									<th>Ver Detalle</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="pedido: ${listped}">
+									<td th:text="${pedido.folio}"></td>
+									<td th:text="${pedido.descripcion}"></td>
+									<td th:text="${pedido.tp.descripcion}"></td>
+									<td th:text="${pedido.tc.descripcion}"></td>
+									<td th:text="${pedido.createAt}"></td>
+									<td th:text="${pedido.total}"></td>
+									<td><a class="btn btn-outline-warning btn-xs"
+										th:href="@{/modulo-ventas/ver/detalle/venta/} + ${pedido.folio}"
+										th:text="'ir'"></a></td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- 				<nav th:replace="/layout/paginator-nav :: paginator"></nav> -->
 					</div>
 				</div>
 			</section>
 			<section id="cobranza">
-				<div class="card">
+		<div class="alert alert-info my-4" th:if="${#lists.isEmpty(listcob)}"
+			th:text="'No hay Cobranza Creada por el Vendedor: ' + ${usuario.nombre} + ' ' + 
+			${usuario.apellido} "></div>
+				<div class="card mt-5" >
 					<div class="card-header"
 						th:text="'Cobranza realizada por el  Usuario'"></div>
 					<div class="card-body">
-						<blockquote class="blockquote mb-0">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Integer posuere erat a ante.</p>
-							<footer class="blockquote-footer">
-								Someone famous in <cite title="Source Title">Source Title</cite>
-							</footer>
-						</blockquote>
+						<table th:if="${not #lists.isEmpty(listcob)}"
+							class="table table-bordered table-striped my-4">
+							<thead class="thead-dark">
+								<tr>
+									<th>Folio</th>
+									<th>Descripcion</th>
+									<th>Tipo de Pago</th>
+									<th>Pedido</th>
+									<th>Total</th>
+									<th>Ver Detalle</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="cobranza: ${listcob}">
+									<td th:text="${cobranza.folio}"></td>
+									<td th:text="${cobranza.descripcion}"></td>
+									<td th:text="${cobranza.tp}"></td>
+									<td th:text="${cobranza.idpedido.folio}"></td>
+									<td th:text="${cobranza.importe}"></td>
+									<td><a class="btn btn-outline-warning btn-xs"
+										th:href="@{/modulo-cobranza/ver/detalle/cobranza/} + ${cobranza.folio}"
+										th:text="'ir'"></a></td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</section>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment=" head">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
+<link rel="stylesheet" th:href="@{/css/estilo2.1.css}">
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery-ui.min.js}"></script>
+
+</head>
+<body>
+	<header th:fragment=" header">
+		<a href="inicio2_vendedor.html">
+			<div class="contenedor" id="cero">
+				<img class="icon" th:src="@{/img/x64-inicio.png}"
+					alt=" icono de oferta">
+				<p class="texto">INICIO</p>
+			</div>
+		</a> <a href="promocion.html">
+			<div class="contenedor" id="uno">
+				<img class="icon" th:src="@{/img/x64-oferta.png}"
+					alt=" icono de oferta">
+				<p class="texto">PROMOCIÓN</p>
+			</div>
+		</a> <a th:href="@{/clientes}">
+			<div class="contenedor" id="dos">
+				<img class="icon" th:src="@{/img/x64-producto.png}"
+					alt=" icono de producto">
+				<p class="texto">CLIENTES</p>
+			</div>
+		</a> <a th:href="@{/modulo-inventario/listadeproductos}">
+			<div class="contenedor" id="tres">
+				<img class="icon" th:src="@{/img/x64-producto.png}"
+					alt=" icono de producto">
+				<p class="texto">PRODUCTOS</p>
+			</div>
+		</a> <a th:href="@{/modulo-ventas/clientes}">
+			<div class="contenedor" id="cuatro">
+				<img class="icon" th:src="@{/img/x64-reporte.png}"
+					alt=" icono de reporte ">
+				<p class="texto">VENTAS</p>
+			</div>
+		</a> <a href="login_vendedores.html">
+			<div class="contenedor" id="cinco">
+				<img class="icon" th:src="@{/img/x64-salir.png}"
+					alt=" icono salir flecha hacia la derecha">
+				<p class="texto">SALIR</p>
+			</div>
+		</a>
+
+		<div class="alert alert-success" th:if="${success != null}"
+			th:text="${success}"></div>
+		<div class="alert alert-danger" th:if="${error != null}"
+			th:text="${error}"></div>
+		<div class="alert alert-warning" th:if="${warning != null}"
+			th:text="${warning}"></div>
+		<div class="alert alert-info" th:if="${info != null}"
+			th:text="${info}"></div>
+	</header>
+	<footer th:fragment=" footer">
+		<center>
+			<a href="#"><img src="img/facebook.png" class="redes" id="uno"
+				alt="logo de facebook"></a> <a href="#"><img
+				src="img/whatsapp.png" class="redes" id="dos" alt="logo de whatsapp"></a>
+			<h5 title="FIME 2020">
+				<a href="inicio2_vendedor.html"> FIME </a> 2020 . Todos los derechos
+				reservados//All right reserved
+			</h5>
+		</center>
+		<br>
+		<hr style="background-color: #564FA9" ; size="5" noshade="noshade" />
+		<br>
+		<hr style="background-color: #564FA9" ; size="5" noshade="noshade" />
+		<br> <br>
+	</footer>
+</body>
+</html>

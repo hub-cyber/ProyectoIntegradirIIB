@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+	<main class="container py-4">
+		<article>
+			<section>
+				<div class="card bg-light">
+					<div class="card-header" th:text="${titulo}"></div>
+					<div class="card-body">
+						<h4 class="card-title">
+							<a th:href="@{/modulo-ventas/ver/}+ ${pedido.cliente.id}"
+								class="btn btn-ligth btn-xs">volver</a>
+						</h4>
+						<ul class="list-group my-2">
+							<li class="list-group-item list-group-item-primary"
+								th:text="'Datos del Cliente'"></li>
+							<li class="list-group-item"
+								th:text="${pedido.cliente.nombre}+' '+ ${pedido.cliente.nombre}"></li>
+						</ul>
+<!-- 						<div class="alert alert-info my-4" th:if="${#list.isEmpty(pedido.items)}" th:text="'La factura '+ ${pedido.descripcion}"></div> -->
+						<ul class="list-group my-2">
+							<li class="list-group-item list-group-item-success"
+								th:text="'Datos del Factura'"></li>
+							<li class="list-group-item" th:text="'Folio: '+ ${pedido.folio}"></li>
+							<li class="list-group-item"
+								th:text="'Descripcion: '+ ${pedido.descripcion}"></li>
+							<li class="list-group-item"
+								th:text="'Fecha: '+ ${pedido.createAt}"></li>
+							<li class="list-group-item"
+								th:text="'Tipo de Credito: '+ ${pedido.tc.descripcion}"></li>
+							<li class="list-group-item"
+								th:text="'Tipo de Pago: '+ ${pedido.tp.descripcion}"></li>
+						</ul>
+						<table 
+							class="table table-sm table-striped table-hover table-response">
+							<thead>
+								<tr>
+									<th width="10%">Codigo</th>
+									<th>Nombre</th>
+									<th width="10%">Cantidad</th>
+									<th width="10%">Descuento</th>
+									<th width="10%">Precio</th>
+									<th width="10%">Total</th>
+								</tr>
+							</thead>
+							<tbody th:each="item: ${pedido.items}">
+								<tr>
+									<td th:text="${item.producto.identificador}"></td>
+									<td th:text="${item.producto.nombre}"></td>
+									<td th:text="${item.cantidad}"></td>
+									<td th:text="${item.descuento}"></td>
+									<td th:text="${item.producto.precio}"></td>
+									<td th:text="${item.calcularImporte()}"></td>
+								</tr>
+							</tbody>
+						</table>
+						<section>
+							<h5 class="text-right">
+								Importe Neto: <span th:text="${pedido.ImporteNeto()}"
+									class="badge badge-primary">0</span>
+							</h5>
+							<h5 class="text-right">
+								Descuento: <span th:text="${pedido.descuento()}"
+									class="badge badge-primary">0</span>
+							</h5>
+							<h5 class="text-right">
+								SubTotal: <span th:text="${pedido.SubTotal()}"
+									class="badge badge-primary" id="Sub_Total">0</span>
+							</h5>
+							<h5 class="text-right">
+								IVA (16%): <span class="badge badge-secondary"
+									th:text="${pedido.CalcularImpuesto()}">0</span>
+							</h5>
+							<h5 class="text-right">
+								Total: <span
+									class="badge badge-success .glyphicon .glyphicon-usd 
+								GranTotal"
+									th:text="${pedido.GranTotal()}">0 </span>
+							</h5>
+						</section>
+					<section>
+						<div class="card border-info mb-4" style="max-width: 20rem;">
+						<div class="card-header">Observaciones: </div>
+						<div class="card-body">
+						<p class="card-text" th:text="${pedido.observacion}" th:if="${not #strings.isEmpty(pedido.observacion)}"></p>
+						<h4  class="card-text" th:text="'No tiene Observaciones'" th:if="${ #strings.isEmpty(pedido.observacion)}"></h4>
+						</div>
+						</div>
+					</section>
+					</div>
+				</div>
+			</section>
+		</article>
+	</main>
+</body>
+</html>

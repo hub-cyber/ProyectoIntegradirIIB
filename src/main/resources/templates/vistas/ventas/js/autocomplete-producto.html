@@ -26,10 +26,10 @@
 			},
 			select: function(event,ui){
 //  				$("#buscar_producto").val(ui.item.label);	
- 				if(itemsHelper.hasProducto(ui.item.value)){
- 					itemsHelper.incrementaCantidad(ui.item.value, ui.item.precio);
- 					return false;
- 				}
+//  				if(itemsHelper.hasProducto(ui.item.value)){
+//  					itemsHelper.incrementaCantidad(ui.item.value, ui.item.precio);
+//  					return false;
+//  				}
  				
 				var linea = $("#plantillaItemsPedido").html();
 				linea = linea.replace(/{ID}/g,ui.item.value);

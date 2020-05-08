@@ -6,6 +6,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +30,7 @@ import com.proyectointegrador2b.service.implementations.ClienteServiceImpl;
 import com.proyectointegrador2b.service.implementations.DireccionServiceImpl;
 import com.proyectointegrador2b.service.implementations.MunicipioServiceImpl;
 import com.proyectointegrador2b.service.implementations.UsuarioServiceImpl;
+import com.proyectointegrador2b.util.paginator.PageRender;
 
 @Controller
 public class ClienteController {
@@ -66,9 +70,14 @@ public class ClienteController {
 	}
 
 	@GetMapping("/clientes")
-	public ModelAndView listadodeClientes(ModelAndView mv) {
-		mv.addObject("clientes", Cservice.getAll());
+	public ModelAndView listadodeClientes(@RequestParam(name="page",defaultValue = "0") int page,ModelAndView mv) {
+		Pageable pageRequest = PageRequest.of(page, 10);
+		Page<Cliente> clientes = Cservice.getAll(pageRequest);
+		PageRender<Cliente> pageRender= new PageRender<>("/clientes", clientes);
+		
+		mv.addObject("clientes", clientes);
 		mv.addObject("titulo", "Listado de Clienetes");
+		mv.addObject("page", pageRender);
 		mv.setViewName("vistas/cliente/listadeCliente");
 		return mv;
 	}

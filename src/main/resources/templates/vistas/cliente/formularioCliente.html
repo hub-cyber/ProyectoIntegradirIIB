@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<html xmlts:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title>Insert title here</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="layout/layout :: head"></head>
 <body>
-	<header></header>
+	<header th:replace="layout/layout :: header"></header>
 	<main class="container">
 		<article>
 		 <span class="display-4" th:text="${titulo}"></span>
@@ -82,6 +78,6 @@
 		</article>
 
 	</main>
-	<footer></footer>
+	<footer th:replace="layout/layout :: footer"></footer>
 </body>
 </html>

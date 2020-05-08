@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+	<div class="container py-4">
+
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+				<table th:if="${not #lists.isEmpty(cobranza)}" class="table table-bordered table-striped my-4">
+					<thead class="thead-dark">
+						<tr>
+							<th>Folio</th>
+							<th>Descripcion</th>
+							<th>Tipo de Pago</th>
+							<th>Pedido</th>
+							<th>Total</th>
+							<th>Ver Detalle</th> 
+							<th>Eliminar</th> 
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cobranza: ${cobranza}">
+							<td th:text="${cobranza.folio}"></td>
+							<td th:text="${cobranza.descripcion}"></td>
+							<td th:text="${cobranza.tp}"></td>
+							<td th:text="${cobranza.idpedido.folio}"></td>
+							<td th:text="${cobranza.importe}"></td>	
+							<td ><a class="btn btn-outline-warning btn-xs" th:href="@{/modulo-cobranza/ver/detalle/cobranza/} + ${cobranza.folio}" th:text="'ir'"></a></td> 
+							<td ><a class="btn btn-outline-danger btn-xs" th:href="@{/modulo-cobranza/eliminarcobranza/} + ${cobranza.id}" th:text="'Eliminar'"></a></td> 
+						</tr>
+					</tbody>
+				</table>
+				<nav th:replace="/layout/paginator-nav :: paginator"></nav>
+
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

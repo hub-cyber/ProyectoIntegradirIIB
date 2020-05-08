@@ -2,6 +2,9 @@ package com.proyectointegrador2b.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface ServiceGeneric<T,K> {
 
 	//Craer los metodos que va a implementar 
@@ -16,4 +19,6 @@ public interface ServiceGeneric<T,K> {
 	public void  delete(K id);
 	//Actualizar 
 	public T actualizacion(final K id, T body);
+	
+	public Page<T> getAll(Pageable paginable);
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.proyectointegrador2b.modelos.entity.ItemPedido;
@@ -46,6 +48,12 @@ public class ItemPedidoServiceImpl implements ServiceGeneric<ItemPedido, Integer
 
 	@Override
 	public ItemPedido actualizacion(Integer id, ItemPedido body) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<ItemPedido> getAll(Pageable paginable) {
 		// TODO Auto-generated method stub
 		return null;
 	}

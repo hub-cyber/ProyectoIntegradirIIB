@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +30,10 @@ public class PedidoServiceImpl implements ServiceGeneric<Pedido, Integer>{
 	
 	public List<Producto> getProductobyName(String name){
 		return Prepository.findByNombreLikeIgnoreCase("%"+name+"%");
+	}
+	
+	public Pedido getDetallePedidobyFolio(String folio) {
+		return Frepository.findByFolio(folio);
 	}
 	
 	@Override
@@ -58,6 +64,12 @@ public class PedidoServiceImpl implements ServiceGeneric<Pedido, Integer>{
 	public Pedido actualizacion(Integer id, Pedido body) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Page<Pedido> getAll(Pageable paginable) {
+		// TODO Auto-generated method stub
+		return Frepository.findAll(paginable);
 	}
 
 }

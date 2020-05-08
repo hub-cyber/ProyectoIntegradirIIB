@@ -27,7 +27,7 @@ public class ItemPedido implements Serializable {
 	private Integer cantidad;
 	
 	@Column(name = "descuento")
-	private Double descuento;
+	private Integer descuento;
 	
 //////	@ManyToOne(fetch = FetchType.LAZY)
 //////	@JoinColumn(name = "idpedido")
@@ -39,15 +39,19 @@ public class ItemPedido implements Serializable {
 	private Producto producto;
 	
 	//<-------Metodos de la clase--------->
-	public Double calcularImporte() {
-		return this.cantidad.doubleValue()* producto.getPrecio();
+	public Integer calcularImporte() {
+		return (int) (this.cantidad.doubleValue()* producto.getPrecio());
 	}
 	
-	public Double calcularImporteconDescuento() {
-		Double des= this.descuento;
-		Double nt = (this.calcularImporte() * des)/100;
-		return nt;
+	public Integer calcularImporteconDescuento() {
+		Integer des= this.descuento;
+		Integer nt = (this.calcularImporte() * des)/100;
+		Integer total = this.calcularImporte() - nt;
+		return total;
 	}
+	
+
+	
 	
 	public void aumentarCantidad() {
 		this.cantidad ++;
@@ -70,11 +74,11 @@ public class ItemPedido implements Serializable {
 		this.cantidad = cantidad;
 	}
 
-	public Double getDescuento() {
+	public Integer getDescuento() {
 		return descuento;
 	}
 
-	public void setDescuento(Double descuento) {
+	public void setDescuento(Integer descuento) {
 		this.descuento = descuento;
 	}
 

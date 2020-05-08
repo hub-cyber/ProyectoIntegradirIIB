@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<html xmlts:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title>Insert title here</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="layout/layout :: head"></head>
 <body>
-	<header></header>
+<header th:replace="layout/layout :: header"></header>
 	<main class="container">
 		<article>
 			<span class="display-4" th:text="${titulo}"></span>
@@ -87,7 +83,7 @@
 			</section>
 			<hr>
 			<section class="direccion">
-				<a class="btn btn-outline-warning btn-lg btn-block"  th:href="@{/perfilcliente/} + ${cliente.id} + @{/direccion}">AÃ±adir Direccion</a>
+				<a class="btn btn-outline-warning btn-lg btn-block"  th:href="@{/perfilcliente/} + ${cliente.id} + @{/direccion}">Añadir Direccion</a>
 				<div class="row">
 					<div class="col-auto" th:each="dire: ${direccion}">
 						<!-- 			tarjeta -->

@@ -1,19 +1,14 @@
 <!DOCTYPE html>
-<html xmlts:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="layout/layout :: head"></head>
 <body>
-<header>
-</header>
+<header th:replace="layout/layout :: header"></header>
 <main class="container">
 <article>
 <section>
 	 <span class="display-4" th:text="${titulo}"></span>
 	 <br>
-	 <a th:href="@{/nuevocliente}" class="btn btn-outline-success">AÃ±adir Nuevo Cliente</a>
+	 <a th:href="@{/nuevocliente}" class="btn btn-outline-success">Añadir Nuevo Cliente</a>
 	<table class="table ">
   <thead>
     <tr>
@@ -41,6 +36,7 @@
 
   </tbody>
 </table>
+<nav th:replace="/layout/paginator-nav :: paginator"></nav>
 </section>
 </article>
 </main>

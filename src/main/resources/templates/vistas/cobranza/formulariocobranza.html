@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="layout/layout :: head"></head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+	<main>
+		<div class="container py-4">
+			<div class="card bg-ligth">
+				<a class="btn btn-outline-success btn-sm"
+					th:href="@{/modulo-ventas/clientes}">volver</a>
+				<div class="card-header" th:text="${titulo}"></div>
+				<div class="card-body">
+					<h4 class="card-title"></h4>
+<!-- 					th:action="@{/modulo-ventas/crear/}+ ${clienteid}" -->
+<form  th:action="@{/modulo-cobranza/crear/} + ${clienteid}" th:object="${cobranza}" method="post">
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" th:text="'Folio:'"></label>
+							<div class="col-sm-6">
+								<input class="form-control" th:field="*{folio}" 
+								th:errorclass="'form-control alert-danger'"/>
+							<small
+								th:if="${#fields.hasErrors('folio')}" th:errors="*{folio}"
+								class="form-text text-danger"></small>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" th:text="'Referencia:'" for="referencia"></label>
+							<div class="col-sm-6">
+								<input id="referencia" class="form-control" type="text"
+									th:field="*{referencia}"  th:errorclass="'form-control alert-danger'"/>
+								<small
+								th:if="${#fields.hasErrors('referencia')}" th:errors="*{referencia}"
+								class="form-text text-danger"></small>	
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" th:text="'Descripcion:'"></label>
+							<div class="col-sm-6">
+								<input class="form-control" type="text"
+									th:field="*{descripcion}"  th:errorclass="'form-control alert-danger'"/>
+								<small
+								th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"
+								class="form-text text-danger"></small>	
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" th:text="'Elige Pedido a Cual se le hara la Cobranza:'" for="idpedo"></label>
+							<div class="col-sm-6">
+								<select id="idpedo" th:field="*{idpedido}" class="form-control" th:errorclass="'form-control alert-danger'">
+									<option value="">----Seleccionar------</option>
+									<option th:each="ref: ${ventaslista}" th:text=" ${ref.folio}+' '+${ref.descripcion}"
+									th:value="${ref.id}">
+									</option>
+								</select>
+							
+							<small
+								th:if="${#fields.hasErrors('idpedido')}" th:errors="*{idpedido}"
+								class="form-text text-danger"></small>	
+							</div>
+						</div>
+					<div class="form-group row">
+							<label class="col-sm-2 col-form-label" th:text="'Tipo de Pago:'"></label>
+							<div class="col-sm-6">
+								<select id="tipoPago" th:field="*{tp}" class="form-control" th:errorclass="'form-control alert-danger'">
+									<option value="">----Seleccionar------</option>
+									<option th:each="tp: ${tipoPago}" th:text="${tp.descripcion}" th:value="${tp.descripcion}">
+									</option>
+								</select>
+							<small
+								th:if="${#fields.hasErrors('tp')}" th:errors="*{tp}"
+								class="form-text text-danger"></small>	
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" th:text="'Importe:'" for="importe"></label>
+							<div class="col-sm-6">
+								<input id="importe" class="form-control" type="number"
+									th:field="*{importe}"  th:errorclass="'form-control alert-danger'"/>
+								<small
+								th:if="${#fields.hasErrors('importe')}" th:errors="*{importe}"
+								class="form-text text-danger"></small>	
+							</div>
+						</div>
+					<div class="form-group row">
+							<label class="col-sm-2 col-form-label" th:text="'Observaciones:'"></label>
+							<div class="col-sm-6">
+								<textarea class="form-control" type="text"
+									th:field="*{observacion}">
+						
+						</textarea>
+							</div>
+						</div>
+												<div class="form-group row">
+							<input type="submit" th:value="'crear cobranza'"
+								class="btn btn-secundary" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer></footer>
+</body>
+</html>

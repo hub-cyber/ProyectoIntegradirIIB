@@ -1,18 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<title>Insert title here</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
-<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery-ui.min.js}"></script>
-
-</head>
+<head  th:replace="layout/layout :: head"></head>
 <body>
-	<header></header>
+	<header th:replace="layout/layout :: header"></header>
 	<main>
 		<div class="container py-4">
 			<div class="card bg-ligth">
@@ -21,13 +11,17 @@
 				<div class="card-header" th:text="${titulo}"></div>
 				<div class="card-body">
 					<h4 class="card-title"></h4>
-<form id="formp" th:action="@{/modulo-ventas/crear}"
+<form id="formp" th:action="@{/modulo-ventas/crear/}+ ${clienteid}"
 						th:object="${pedido}" method="post">
 <!-- 						<input type="hidden" th:value="1" th:field:="id"/> -->
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label" th:text="'Folio:'"></label>
-							<div class="col-sm-6">
-								<input class="form-control" th:field="*{folio}" />
+							<div class="col-sm-6" >
+								<input class="form-control" th:field="*{folio}" 
+								th:errorclass="'form-control alert-danger'"/>
+							<small
+								th:if="${#fields.hasErrors('folio')}" th:errors="*{folio}"
+								class="form-text text-danger"></small>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -61,7 +55,10 @@
 							<label class="col-sm-2 col-form-label" th:text="'Descripcion:'"></label>
 							<div class="col-sm-6">
 								<input class="form-control" type="text"
-									th:field="*{descripcion}" />
+									th:field="*{descripcion}"  th:errorclass="'form-control alert-danger'"/>
+								<small
+								th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"
+								class="form-text text-danger"></small>	
 							</div>
 						</div>
 						<div class="form-group row">
@@ -76,22 +73,29 @@
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label" th:text="'Tipo de Pago:'"></label>
 							<div class="col-sm-6">
-								<select id="tipoPago" th:field="*{tp}" class="form-control">
+								<select id="tipoPago" th:field="*{tp}" class="form-control" th:errorclass="'form-control alert-danger'">
 									<option value="">----Seleccionar------</option>
 									<option th:each="tp: ${tipoPago}" th:text="${tp.descripcion}"
-										th:value="${tp.id}"></option>
+										th:value="${tp.id}">
+									</option>
 								</select>
+							<small
+								th:if="${#fields.hasErrors('tp')}" th:errors="*{tp}"
+								class="form-text text-danger"></small>	
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label"
 								th:text="'Tipo de Credito:'"></label>
 							<div class="col-sm-6">
-								<select id="tipocredito" th:field="*{tc}" class="form-control">
+								<select id="tipocredito" th:field="*{tc}" class="form-control" th:errorclass="'form-control alert-danger'">
 									<option value="">----Seleccionar------</option>
 									<option th:each="tc: ${tipoCredito}"
 										th:text="${tc.descripcion}" th:value="${tc.id}"></option>
 								</select>
+								<small
+								th:if="${#fields.hasErrors('tc')}" th:errors="*{tc}"
+								class="form-text text-danger"></small>	
 							</div>
 						</div>
 						<div class="form-group row">
@@ -143,55 +147,6 @@
 				</div>
 			</div>
 		</div>
-<!-- 		<div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" -->
-<!-- 			th:if="${mensaje != null}" th:text="${mensaje}" -->
-<!-- 			class="alert container"></div> -->
-		<!-- 		<section id="tabladepedido" class="container py-4 "> -->
-		<!-- 			<div  class="card bg-ligth" > -->
-		<!-- 				<div class="card-header" th:text="${titulo2}"></div> -->
-		<!-- 				<div class="card-body"> -->
-		<!-- 					<form th:action="@{/modulo-ventas/crear/} + ${clienteid} +@{/agregar}" th:object="${producto}" method="get"> -->
-		<!-- 						<div class="form-group row"> -->
-		<!-- 							<label class="col-sm-2 col-form-label" for="buscar_producto">Buscar Producto:</label> -->
-		<!-- 							<div class="col-sm-6"> -->
-		<!-- 								<input class="form-control" type="text" name="buscar_producto" -->
-		<!-- 									id="buscar_producto" placeholder="Buscar Producto" th:field="*{identificador}" /> -->
-		<!-- 							</div> -->
-		<!-- 						</div> -->
-		<!-- <!-- 						<table th:replace="vistas/ventas/plantilla-item :: itemspedido"></table> -->
-		-->
-		<!-- 						<table id="cargarItemProductos" -->
-		<!-- 							class="table table-sm table-striped table-hover table-response" -->
-		<!-- 							th:object="${producto}"> -->
-		<!-- 							<thead> -->
-		<!-- 								<tr> -->
-		<!-- 									<th width="10%">Codigo</th> -->
-		<!-- 									<th>Nombre</th> -->
-		<!-- 									<th width="10%">Cantidad</th> -->
-		<!-- 									<th width="10%">Descuento</th> -->
-		<!-- 									<th width="10%">Precio</th> -->
-		<!-- 									<th width="10%">Total</th> -->
-		<!-- 								</tr> -->
-		<!-- 							</thead> -->
-		<!-- 							<tbody> -->
-		<!-- 								<tr th:each="item,iterador:${productosavender}"> -->
-		<!-- 									<td th:text="${item.producto.identificador}"></td> -->
-		<!-- 									<td th:text="${item.producto.nombre}"></td> -->
-		<!-- 									<td th:text="${item.cantidad}"></td> -->
-		<!-- 									<td th:text="${item.descuento}"></td> -->
-		<!-- 									<td th:text="${importe}"></td> -->
-		<!-- 								</tr> -->
-		<!-- 							</tbody> -->
-		<!-- 						</table> -->
-
-		<!-- 						<div class="form-group row"> -->
-		<!-- 							<input type="submit" th:value="'crear pedido'" -->
-		<!-- 								class="btn btn-secundary" /> -->
-		<!-- 						</div> -->
-		<!-- 					</form> -->
-		<!-- 				</div> -->
-		<!-- 			</div> -->
-		<!-- 		</section> -->
 	</main>
 	<footer></footer>
 	<script type="text/javascript"

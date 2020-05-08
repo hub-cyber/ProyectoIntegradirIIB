@@ -1,29 +1,23 @@
 <!DOCTYPE html>
-<html xmlts:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="layout/layout :: head"></head>
 <body>
-<header>
-</header>
+<header th:replace="layout/layout :: header"></header>
 <main class="container">
 <article>
 <section>
 	 <span class="display-4" th:text="${titulo}"></span>
 	 <br>
-	 <a th:href="@{/formUsuario}" class="btn btn-outline-success">Añadir Nuevo Usuario</a>
-	<table class="table ">
+	 <a th:href="@{/formUsuario}" class="btn btn-outline-success mt-2">Añadir Nuevo Usuario</a>
+	<table class="table mt-3">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Nombre </th>
       <th scope="col">Apellido</th>
       <th scope="col">Username</th>
-      <th scope="col">Password</th>
       <th scope="col">Tipo de Usuario</th>
-      <th scope="col">Editar</th>
+      <th scope="col">Perfil</th>
       <th scope="col">Eliminar</th>
     </tr>
   </thead>
@@ -33,9 +27,8 @@
       <td th:text="${user.nombre}"></td>
         <td th:text="${user.apellido}"></td>
         <td th:text="${user.username}"></td>
-         <td th:text="${user.password}"></td>
           <td th:text="${user.iduserRole.descripcion}"></td>
-              <td> <a th:href="@{/perfilusuario/} + ${user.id}" th:text="'Editar'" class="btn btn-primary btn-xs"></a></td>
+              <td> <a th:href="@{/perfilusuario/} + ${user.id}" th:text="'Perfil'" class="btn btn-primary btn-xs"></a></td>
               <td> <a th:href="@{/deleteusuario/} + ${user.id}" th:text="'Eliminar'" class="btn btn-danger btn-xs"></a></td>
     </tr>
 

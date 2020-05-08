@@ -19,6 +19,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="pedido")
@@ -30,8 +32,10 @@ public class Pedido implements Serializable{
 	@Column(name="idpedido")
 	private Integer id;
 	@Column(name="folio")
+	@NotEmpty
 	private String folio;
 	@Column(name="descripcion")
+	@NotEmpty
 	private String descripcion;
 	@Column(name="observacion")
 	private String observacion;
@@ -42,9 +46,11 @@ public class Pedido implements Serializable{
 	private Integer total;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="idtipodecredito")
+	@NotNull
 	private TipoCredito tc;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="idtipodepago")
+	@NotNull
 	private TipoPago tp;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="idcliente")
@@ -67,36 +73,48 @@ public class Pedido implements Serializable{
 	
 	
 	
-//	public Double SubTotal() {
-//		double tcd=0.0;
-//		double tsd=0.0;
-//		double subTotal = 0.0;
-//		int size = items.size();
-//		for(int i=0; i< size; i++) {
-//			if(items.get(i).getDescuento()!= null) {
-//				tcd += items.get(i).calcularImporteconDescuento();
-//			}else {
-//				tsd += items.get(i).calcularImporte();
-//			}
-//			subTotal= tcd + tsd;
-//		}
-//		return subTotal;
-//	}
-//	
-//	public Double descuento() {
-//		double tcd=0.0;
-//		int size = items.size();
-//		for(int i=0; i< size; i++) {
-//			if(items.get(i).getDescuento()!= null) {
-//				tcd += items.get(i).calcularImporteconDescuento();
-//			}
-//		}
-//		return tcd;
-//	}
-//	
-//	public Double CalcularImpuesto() {
-//		return this.SubTotal() * 1.16;
-//	}
+	public Double SubTotal() {
+		double tcd=0.0;
+		double tsd=0.0;
+		double subTotal = 0.0;
+		int size = items.size();
+		for(int i=0; i< size; i++) {
+			if(items.get(i).getDescuento()>0) {
+				tcd += items.get(i).calcularImporteconDescuento();
+			}else {
+				tsd += items.get(i).calcularImporte();
+			}
+			subTotal= tcd + tsd;
+		}
+		return subTotal;
+	}
+	public Integer ImporteNeto() {
+		int tsd=0;
+	int size = items.size();
+	for(int i=0; i< size; i++) {
+			tsd += items.get(i).calcularImporte();
+		}
+		return tsd;
+	}
+	public Integer descuento() {
+		int tcd=0;
+		int tsd=0;
+	int size = items.size();
+	for(int i=0; i< size; i++) {
+			
+			tcd += items.get(i).calcularImporteconDescuento();
+			tsd += items.get(i).calcularImporte();
+		}
+		return tsd-tcd;
+	}
+	
+	public Double CalcularImpuesto() {
+		return (this.SubTotal() * 16)/100;
+	}
+	
+	public Double GranTotal() {
+		return this.SubTotal() + this.CalcularImpuesto();
+	}
 
 //--------------getters y setters------------
 	
@@ -184,22 +202,4 @@ public class Pedido implements Serializable{
 	public void setItems(List<ItemPedido> items) {
 		this.items = items;
 	}
-
-	@Override
-	public String toString() {
-		return "Pedido [id=" + id + ", folio=" + folio + ", descripcion=" + descripcion + ", observacion=" + observacion
-				+ ", createAt=" + createAt + ", total=" + total + ", tc=" + tc + ", tp=" + tp + ", cliente=" + cliente
-				+ ", items=" + items + "]";
-	}
-	
-
-	
-
-
-	
-	
-	
-
-	
-	
 }

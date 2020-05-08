@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.proyectointegrador2b.modelos.entity.Usuario;
@@ -47,6 +49,12 @@ public class UsuarioServiceImpl implements ServiceGeneric<Usuario, Integer> {
 		user.setPassword(body.getPassword()!= null ? body.getPassword(): user.getPassword());
 		user.setIduserRole(body.getIduserRole()!= null ? body.getIduserRole(): user.getIduserRole());
 		return Urepository.save(user);
+	}
+
+	@Override
+	public Page<Usuario> getAll(Pageable paginable) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

@@ -1,0 +1,135 @@
+
+/* menu principal cuadros  de inicio  */
+header{
+  margin: 70px auto;
+  width: 1200px;
+  height: 190px;
+  background-color: red;
+}
+
+/* cabecera titulo central franga negra */
+header.title {
+  margin: 70px auto;
+  width: 700px;
+  height: 38px;
+  background-color: black;
+}
+
+/* cabecera amarilla  */
+header.title1 {
+  margin: 100px;
+  width: 507px;
+  height: 40px;
+  background-color: yellow;
+}
+
+p#uno {
+    margin-left: 3px;
+    margin-right: 0px;
+    padding-top: 7px;
+}
+
+div.contenedor{
+  width: 200px;
+  height: 190px;
+  float: left;
+}
+
+div#cero{
+  background-color: rgb(4, 125, 181);
+}
+
+div#uno{
+  background-color: rgb(61, 181, 237);
+}
+
+div#dos{
+  background-color: rgb(4, 125, 181);
+}
+
+div#tres{
+  background-color: rgb(61, 181, 237);
+}
+
+div#cuatro{
+  background-color: rgb(4, 125, 181);
+}
+
+div#cinco{
+  background-color: rgb(61, 181, 237);
+}
+
+img.icon{
+  display: block;
+  margin: 40px auto;
+}
+
+img.redes{
+  width: 30px;
+  height: 30px;
+}
+
+p.texto{
+  font-size: 1.4em;
+  font-family: fantasy;
+  color: black;
+  text-align: center;
+  padding-top: 0px;
+  opacity: .7;
+  transition: padding-top .3s;
+}
+
+p.texto2{
+  margin: 100px;
+  font-size: 1.3em;
+  font-family: Arial ;
+  color: black;
+  text-align:  left;
+}
+
+div.contenedor:hover{
+  height: 230px;
+}
+
+div.contenedor:hover p.texto{
+  padding-top: 25px;
+}
+
+.slider{
+  width: 95%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.slider ul {
+  display: flex;
+  padding: 0;
+  width: 400%;
+
+    animation: cambio 20s infinite;
+    animation-direction: alternate;
+}
+
+.slider li {
+    width: 100%;
+    list-style: none;
+}
+
+.slider img {
+  width: 60%;
+  height: 80%;
+}
+
+@keyframes cambio {
+  0%{ margin-left: 0;}
+  20%{margin-left: 0;}
+
+  25%{margin-left: -100%;}
+  45%{margin-left: -100%;}
+
+  50%{margin-left: -200%;}
+  70%{margin-left: -200%;}
+
+  75%{margin-left: -300%;}
+  100%{margin-left: -300%;}
+}
