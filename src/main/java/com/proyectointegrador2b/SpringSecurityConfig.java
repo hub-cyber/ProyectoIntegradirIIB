@@ -29,7 +29,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/css/**","/js/**","/img/**").permitAll()
+		http.authorizeRequests().antMatchers("/css/**","/js/**","/img/**","/").permitAll()
 		.antMatchers("/usuarios","/formUsuario","/modulo-inventario/dardealta/producto","/modulo-inventario/editarproducto/**"
 				,"/delitecliente/**","/modulo-inventario/eliminarproducto/**",
 				"/modulo-cobranza/listadodecobranza","/modulo-cobranza/eliminarcobranza/**").hasAnyRole("Administrador")
@@ -38,8 +38,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 				"/modulo-cobranza/ver/detalle/cobranza/**")
 		.hasAnyRole("Vendedor","Administrador")
 		
-		.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout().permitAll();
-		
+		.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout().permitAll()
+		.and()
+		.exceptionHandling().accessDeniedPage("/error_403");	
 	}
+	
 	
 }
