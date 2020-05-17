@@ -179,10 +179,17 @@ public class ClienteController {
 
 	// eliminar
 	@GetMapping("/perfilcliente/{id}/eliminardireccion/{address}")
-	public ModelAndView eliminardireccion( @PathVariable("id") Integer id, @PathVariable("address")  Integer idaddress,ModelAndView mv) {
+	public ModelAndView eliminardireccion( @PathVariable("id") Integer id,
+			@PathVariable("address")  Integer idaddress,ModelAndView mv) {
 		Dservice.delete(idaddress);
 		Cliente cliente = Cservice.getById(id);
 		mv.setViewName("redirect:/perfilcliente/" + cliente.getId());
 		return mv;
 	}
+	
+	
+	
+	
+	
+	
 }

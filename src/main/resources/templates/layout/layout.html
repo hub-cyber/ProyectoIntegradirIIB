@@ -33,27 +33,31 @@
 						th:href="@{/modulo-ventas/clientes}">Ventas</a></li>
 					<li><a class="nav-item nav-link"
 						th:href="@{/modulo-cobranza/listadodecobranza}">Cobranzas</a></li>
-
+					<li><a class="nav-item nav-link"
+						th:href="@{/usuarios}">Usuarios</a></li>
 				</ul>
 				<ul class="navbar-nav navbar-right">
 					<li sec:authorize="!isAuthenticated()"><a
 						class="btn btn-outline-primary btn-sm " th:href="@{/login}">Login</a></li>
 					<li class="dropdown"><a
-						class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
-						id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> <span sec:authentication="name"></span> </a>
+						class="btn btn-outline-primary dropdown-toggle" href="#"
+						role="button" id="dropdownMenuLink" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"> <span
+							sec:authentication="name"></span>
+					</a>
 
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							<form id="logoutForm" th:action="@{/logout}" method="post">
-							<button class="dropdown-item" onclick="document.getElementyBtId('logoutForm').submit();" type="submit">Cerrar Sesion </button>
-<!-- 								<input type="hidden" th:name="${_crsf.parameterName}" th:value="${_crsf.token}"> -->
+								<button class="dropdown-item"
+									onclick="document.getElementyBtId('logoutForm').submit();"
+									type="submit">Cerrar Sesion</button>
+								<!-- 								<input type="hidden" th:name="${_crsf.parameterName}" th:value="${_crsf.token}"> -->
 							</form>
-						</div>
-						</li>
+						</div></li>
 				</ul>
 			</div>
 		</nav>
-		
+
 		<div class="alert alert-success" th:if="${success != null}"
 			th:text="${success}"></div>
 		<div class="alert alert-danger" th:if="${error != null}"

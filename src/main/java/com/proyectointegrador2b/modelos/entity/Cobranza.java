@@ -17,10 +17,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="cobranza")
 public class Cobranza implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

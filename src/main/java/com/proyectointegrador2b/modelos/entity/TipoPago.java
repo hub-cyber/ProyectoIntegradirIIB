@@ -13,21 +13,13 @@ import javax.persistence.Table;
 @Table(name = "tipodepago")
 public class TipoPago implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8081511089365890979L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idtipodepago")
 	private Integer Id;
 	@Column(name = "descripcion")
 	private String descripcion;
-	
-	
-	
-	
 	public Integer getId() {
 		return Id;
 	}

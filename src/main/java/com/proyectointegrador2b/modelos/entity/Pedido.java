@@ -70,9 +70,6 @@ public class Pedido implements Serializable{
 	public void  persist() {
 		createAt= new Date();
 	}
-	
-	
-	
 	public Double SubTotal() {
 		double tcd=0.0;
 		double tsd=0.0;
@@ -101,17 +98,14 @@ public class Pedido implements Serializable{
 		int tsd=0;
 	int size = items.size();
 	for(int i=0; i< size; i++) {
-			
 			tcd += items.get(i).calcularImporteconDescuento();
 			tsd += items.get(i).calcularImporte();
 		}
 		return tsd-tcd;
 	}
-	
 	public Double CalcularImpuesto() {
 		return (this.SubTotal() * 16)/100;
 	}
-	
 	public Double GranTotal() {
 		return this.SubTotal() + this.CalcularImpuesto();
 	}

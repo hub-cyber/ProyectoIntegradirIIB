@@ -9,7 +9,7 @@ public interface ServiceGeneric<T,K> {
 
 	//Craer los metodos que va a implementar 
 	
-	//Crear
+	//Crear un obketo
 	public T crear(T entity);
 	//listar
 	public List<T> getAll();

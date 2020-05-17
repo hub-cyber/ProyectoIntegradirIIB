@@ -30,8 +30,6 @@ public class ProductoController {
 
 	@Autowired
 	ProductoServiceImpl ProductoService;
-	
-	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(String.class, "nombre", new DatosIngresadosenMayuscula());
@@ -70,7 +68,8 @@ public class ProductoController {
 	}
 	//Guardar producto en bd
 	@PostMapping("/dardealta/producto")
-	public ModelAndView guardarProducto(@Valid Producto producto, BindingResult result, ModelAndView mv, RedirectAttributes flash){
+	public ModelAndView guardarProducto(@Valid Producto producto, BindingResult result, ModelAndView mv, 
+			RedirectAttributes flash){
 		
 		if(result.hasFieldErrors()) {
 			mv.addObject("titulo", "Dar de Alta Nuevo Producto");
@@ -82,7 +81,6 @@ public class ProductoController {
 		return mv;
 		
 	}
-	
 	//Editar producto
 	@GetMapping("/editarproducto/{id}")
 	public ModelAndView editarProducto(@PathVariable("id") Integer id, ModelAndView mv) {

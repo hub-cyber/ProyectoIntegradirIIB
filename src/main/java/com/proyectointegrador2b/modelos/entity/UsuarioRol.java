@@ -13,12 +13,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="user_role")
 public class UsuarioRol implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8740526149169869341L;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotNull

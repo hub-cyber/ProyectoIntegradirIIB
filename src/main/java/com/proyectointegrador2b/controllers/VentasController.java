@@ -1,5 +1,4 @@
 package com.proyectointegrador2b.controllers;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -48,11 +47,8 @@ import com.proyectointegrador2b.util.paginator.PageRender;
 
 @Controller
 @RequestMapping("/modulo-ventas")
-
 public class VentasController {
-
 	private final Logger log = org.slf4j.LoggerFactory.getLogger(getClass());
-
 	@Autowired
 	ClienteServiceImpl vsImpl;
 	@Autowired
@@ -69,24 +65,20 @@ public class VentasController {
 	TipodewCreditoRepository TCrepository;
 	@Autowired
 	CobranzaServiceImpl CobService;
-
 	@ModelAttribute("clientes")
 	public List<Cliente> clientes() {
 		return vsImpl.getAll();
 	}
-
 	@ModelAttribute("direcciones")
 	public List<Direccion> direciones() {
 		return Dservice.getAll();
 	}
-
 	@ModelAttribute("tipoCredito")
 	public List<TipoCredito> creditos() {
 		List<TipoCredito> lista = new ArrayList<TipoCredito>();
 		TCrepository.findAll().forEach(e -> lista.add(e));
 		return lista;
 	}
-
 	@ModelAttribute("tipoPago")
 	public List<TipoPago> tipodepagos() {
 		return TpagoService.getAll();
@@ -114,10 +106,9 @@ public class VentasController {
 
 	// ver detalle las ventas del cliente
 	@GetMapping("/ver/{id}")
-	public ModelAndView pedidos(@PathVariable("id") Integer id, @RequestParam(name="page",defaultValue = "0") int page,ModelAndView mv) {
-		/*
-		 * Esta parte del codigo este for sirve para mostar las facturas de el cliente escogido, en el tamplate de ver 
-		 */
+	public ModelAndView pedidos(@PathVariable("id") Integer id, @RequestParam(name="page",defaultValue = "0") int page,
+			ModelAndView mv) {
+		 // Esta parte del codigo este for sirve para mostar las facturas de el cliente escogido, en el tamplate de ver 
 		int saldo =0;
 		int totalventas =0;
 		int totalCobranza=0;
@@ -129,7 +120,6 @@ public class VentasController {
 			if(id == ped.getCliente().getId()) {
 				ventas.add(ped);
 				totalventas += ped.getTotal();
-				
 			}
 		}
 		Pageable pageRequest = PageRequest.of(page, 10);

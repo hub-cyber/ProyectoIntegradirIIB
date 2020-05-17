@@ -50,13 +50,10 @@ public class UsuarioController {
 	@Autowired
 	CobranzaServiceImpl CoService;
 	
-	
-	
 	@ModelAttribute("listadepedidos")
 	public List<Pedido> listadePedido(){
 		return Pservice.getAll();
 	}
-	
 	@ModelAttribute("listadeClientes")
 	public List<Cliente> listadeCliente(){
 		return Cservice.getAll();
@@ -65,13 +62,10 @@ public class UsuarioController {
 	public List<Cobranza> listadeCobranza(){
 		return CoService.getAll();
 	}
-	
 	@ModelAttribute("roles")
 	public List<UsuarioRol> roles(){
 		return UrolService.getAll();
 	}
-	
-	
 	@GetMapping("/usuarios")
 	public ModelAndView listadeUsuario( ModelAndView mv, SessionStatus status){
 		mv.addObject("usuarios", Uservice.getAll());
@@ -89,7 +83,6 @@ public class UsuarioController {
 		mv.setViewName("vistas/usuario/formdeUsuario");
 		return mv;
 	}
-	
 	@PostMapping("/formUsuario")
 	public ModelAndView creaciondeUsuario( @Valid Usuario usuario,BindingResult result, ModelAndView mv) {
 		if(result.hasFieldErrors()) {
@@ -100,10 +93,9 @@ public class UsuarioController {
 		}
 		Uservice.crear(usuario);
 		mv.setViewName("redirect:/usuarios");
-		
 		return mv;
 	}
-	
+
 	//handeler para editar 
 	@GetMapping("/perfilusuario/{id}")
 	public ModelAndView editarUsuario(@PathVariable(value="id") Integer id, ModelAndView mv) {
@@ -114,28 +106,23 @@ public class UsuarioController {
 			listaCliente.add(clie);
 		}
 	}
-	
 	List<Pedido> listadePedido = new ArrayList<Pedido>();
 	for(Pedido ped: this.listadePedido()) {
 		if(id == ped.getCliente().getVendedor().getId()) {
 			listadePedido.add(ped);
 		}
 	}
-	
 	List<Cobranza> listadeCobranza = new ArrayList<Cobranza>();
 	for(Cobranza cob: this.listadeCobranza()) {
 		if(id== cob.getIdpedido().getCliente().getVendedor().getId()) {
 			listadeCobranza.add(cob);
 		}
 	}
-	
-	
 	mv.addObject("titulo", "Perfil del Usuario");
 	mv.addObject("listcli", listaCliente);
 	mv.addObject("listped", listadePedido);
 	mv.addObject("listcob", listadeCobranza);
 	mv.setViewName("vistas/usuario/perfilusuario");
-	
 	mv.addObject("usuario", usuario);
 	return mv;
 	}

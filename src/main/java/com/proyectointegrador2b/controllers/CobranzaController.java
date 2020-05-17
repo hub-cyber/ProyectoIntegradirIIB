@@ -44,7 +44,6 @@ public class CobranzaController {
 	PedidoServiceImpl Pservice;
 	@Autowired
 	TipodePagoServiceImpl TpagoService;
-
 	@Autowired
 	CobranzaServiceImpl CobService;
 	
@@ -56,12 +55,10 @@ public class CobranzaController {
 	@GetMapping("/crear/{clienteid}")
 	public ModelAndView formCobranza(@PathVariable("clienteid") Integer idcliente, ModelAndView mv) {
 		Cliente cliente = Cservice.getById(idcliente);
-
 		List<Pedido> ventas = new ArrayList<Pedido>();
 		for (Pedido ped : Pservice.getAll()) {
 			if (idcliente == ped.getCliente().getId()) {
 				ventas.add(ped);
-
 			}
 		}
 		mv.addObject("titulo", "Crear Cobranza a Cliente: " + cliente.getNombre() + " " + cliente.getApellidos());
@@ -71,7 +68,6 @@ public class CobranzaController {
 		mv.setViewName("vistas/cobranza/formulariocobranza");
 		return mv;
 	}
-
 	@PostMapping("/crear/{clienteid}")
 	public ModelAndView crearCobranza(@Valid Cobranza cobranza, BindingResult result,
 			@PathVariable("clienteid") Integer idcliente, ModelAndView mv, RedirectAttributes flash) {
@@ -80,7 +76,6 @@ public class CobranzaController {
 		for (Pedido ped : Pservice.getAll()) {
 			if (idcliente == ped.getCliente().getId()) {
 				ventas.add(ped);
-
 			}
 		}
 		if (result.hasFieldErrors()) {
@@ -89,12 +84,10 @@ public class CobranzaController {
 			mv.setViewName("vistas/cobranza/formulariocobranza");
 			return mv;
 		}
-		
 		mv.addObject("cobranza", CoService.crear(cobranza));
 		flash.addFlashAttribute("mensaje", "Venta realizada con Exito");
 		mv.setViewName("redirect:/modulo-ventas/clientes/");
 		return mv;
-
 	}
 	//Ver detale de cobranza 
 	@GetMapping("/ver/detalle/cobranza/{folio}")
@@ -132,4 +125,8 @@ public class CobranzaController {
 		mv.setViewName("redirect:/modulo-cobranza/listadodecobranza");
 		return mv;
 	}
+	
+	
+	
+	
 }

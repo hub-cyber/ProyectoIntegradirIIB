@@ -6,15 +6,12 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 public class PageRender<T> {
-
 	private String url;
 	private Page<T> page;
 	private int totalPaginas;
 	private int numElementoPorpagina;
 	private int paginaActual;
 	private List<PageItem> paginas;
-	
-	
 	public PageRender(String url, Page<T> page) {
 		this.url = url;
 		this.page = page;
@@ -38,40 +35,28 @@ public class PageRender<T> {
 				hasta = numElementoPorpagina;
 			}
 		}
-		
 		for(int i=0; i< hasta;i++) {
-			paginas.add(new PageItem(desde +i , paginaActual== desde+i));
-			
+			paginas.add(new PageItem(desde +i , paginaActual== desde+i));	
 		}
 	}
-
-
 	public String getUrl() {
 		return url;
 	}
-
-
 	public int getTotalPaginas() {
 		return totalPaginas;
 	}
-
-
 	public int getPaginaActual() {
 		return paginaActual;
 	}
-
-
 	public List<PageItem> getPaginas() {
 		return paginas;
 	}
-	
 	public boolean isFirst() {
 		return page.isFirst();
 	}
 	public boolean isLast() {
 		return page.isLast();
 	}
-	
 	public boolean ishasNext() {
 		return page.hasNext();
 	}

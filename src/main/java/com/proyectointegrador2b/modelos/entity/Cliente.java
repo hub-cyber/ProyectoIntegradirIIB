@@ -1,9 +1,7 @@
 package com.proyectointegrador2b.modelos.entity;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,13 +16,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
 @Table(name="cliente")
 public class Cliente implements Serializable{
-
 	private static final long serialVersionUID = 8023251967788302221L;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="idcliente")
@@ -50,16 +45,12 @@ public class Cliente implements Serializable{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="idusuario")
 	private Usuario vendedor;
-	
 	//lista de sus pedidos
 	@OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY)
 	private List<Pedido> pedidos;
-	
-	
 	public Cliente() {
 		pedidos = new ArrayList<Pedido>();
 	}
-	
 	
 	public Integer getId() {
 		return id;
@@ -109,8 +100,6 @@ public class Cliente implements Serializable{
 	public void setVendedor(Usuario vendedor) {
 		this.vendedor = vendedor;
 	}
-	
-	
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
@@ -122,10 +111,6 @@ public class Cliente implements Serializable{
 		pedidos.add(pedido);
 	}
 
-
-
-
-	
 //	@Override
 //	public String toString() {
 //		return "Cliente [id=" + id + ", identificador=" + identificador + ", nombre=" + nombre + ", apellidos="
